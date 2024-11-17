@@ -71,7 +71,7 @@
 	};
 
 	$(function () {
-		var isLogin = @JsonConvert.SerializeObject(ViewContext.HttpContext.Session.GetString("isLogin") == "true");
+		var isLogin = @(JsonConvert.SerializeObject(ViewContext.HttpContext.Session.GetString("isLogin") == "true"));
 		var memberID, memberName, memberEmail;
 		if (isLogin) {
 			memberID = sessionStorage.getItem("memberID");
