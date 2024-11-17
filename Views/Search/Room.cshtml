@@ -482,7 +482,7 @@
 									@message.message_content
 								</p>
 								<span class="reply">回覆</span>
-								<span class="messageTime">@message.post_time.ToString()</span>
+								<span class="messageTime">@message.post_time?.ToString()</span>
 							</div>
 						</div>
 					}
@@ -536,9 +536,9 @@
 </section>
 <script>
 	$(function () {
-		var isLogin = @JsonConvert.SerializeObject(ViewContext.HttpContext.Session.GetString("isLogin") == "true");
+		var isLogin = @(JsonConvert.SerializeObject(ViewContext.HttpContext.Session.GetString("isLogin") == "true"));
 		//抓房間編號
-		var roomID = @Model.Room?.room_id;
+		var roomID = @(Model.Room?.room_id);
 		//抓房間標題
 		var roomTitle = "@Html.Raw(Model.Room?.room_title)";
 		var memberID, memberName, memberEmail;
@@ -911,7 +911,7 @@
 				type: 'POST',
 				data: { memberID: memberID },
 				success: function (response) {
-					if (response.includes(@(Model.Room?.room_id)) {
+					if (response.includes(@Model.Room?.room_id)) {
 						$('#add-favorites-btn').addClass('d-none');
 						$('#remove-favorites-btn').removeClass('d-none');
 					}
