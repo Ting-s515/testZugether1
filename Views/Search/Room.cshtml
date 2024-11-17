@@ -764,8 +764,9 @@
 					return console.error("錯誤", err.toString());
 				});
 				$('#inputMessage').val('');
-				//移除事件
+				//移除防呆事件
 				$('#inputMessage').off('input');
+				$('#cancel-reply').addClass('d-none');
 			}
 		});
 

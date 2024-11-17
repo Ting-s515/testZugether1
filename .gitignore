@@ -9,9 +9,25 @@
 *.user
 *.userosscache
 *.sln.docstates
-images/
-img/
-lib/
+# 編譯檔案
+bin/
+obj/
+debug/
+release/
+# NuGet 套件
+packages/
+*.nupkg
+project.lock.json
+# Visual Studio 相關檔案
+.vs/
+*.user
+*.suo
+# 靜態文件
+wwwroot/lib/
+node_modules/
+# 敏感配置
+appsettings.json
+appsettings.*.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
