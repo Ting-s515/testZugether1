@@ -1,0 +1,7 @@
+﻿.roomEquipment{
+    display:flex;
+    align-items:center
+}
+.card {
+    background: #fff3ee;
+}

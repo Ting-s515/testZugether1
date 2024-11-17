@@ -1,0 +1,113 @@
+:root {
+    --primary: #1c2434;
+    --secondary: #bc9b44;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+
+img {
+    object-fit: cover
+}
+
+a {
+    color: black;
+}
+
+.lightSecondary {
+    color: #dec875;
+}
+
+.btn {
+    border: none;
+}
+
+    .btn:focus, .btn-close:focus {
+        box-shadow: none;
+        border: none;
+    }
+
+.form-select:focus, .form-control:focus {
+    box-shadow: none;
+    border-color: #8e929a;
+}
+
+.bg-primary {
+    background: var(--primary) !important;
+}
+
+    .bg-primary:hover {
+        background: var(--primary) !important;
+    }
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.btn-primary {
+    background: var(--primary) !important;
+    color: white;
+}
+
+.btn-outline-primary {
+    background: white;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.bg-secondary {
+    background: var(--secondary);
+}
+
+.text-secondary {
+    color: var(--secondary) !important;
+}
+
+.btn-secondary {
+    background: var(--secondary);
+    color: white;
+}
+
+.btn-outline-secondary {
+    background: white;
+    color: var(--secondary);
+    border-color: var(--secondary);
+}
+
+.border-secondary {
+    border-color: var(--secondary) !important;
+}
+
+/*CustomizedScroll*/
+/*捲軸底色*/
+
+.CustomizedScroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    border-radius: 4px;
+}
+
+/*捲軸寬度*/
+.CustomizedScroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+/*捲軸本體顏色*/
+.CustomizedScroll::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    border-radius: 4px;
+}
