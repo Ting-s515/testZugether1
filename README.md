@@ -1,4 +1,4 @@
- <h1>Zugether合租網站</h1>
+<h1>Zugether合租網站</h1>
     <h2>目錄 : </h2>
     <ul>
         <li><a href="#project-description">專案說明</a></li>
@@ -46,7 +46,7 @@
         </ul>
     </ul>
     <h2 id="database-design">資料庫設計 : </h2>
-    <h2 id="function-description">功能說明 : /h2>
+    <h2 id="function-description">功能說明 : </h2>
     <ul>
         <li>房源發布與搜尋：用戶可以輕鬆發布房源，並透過多重篩選功能快速找到符合需求的合租物件。</li>
         <li>Google 快速登入：整合 Google OAuth 提供快速登入功能，簡化註冊流程，提升用戶體驗。</li>
