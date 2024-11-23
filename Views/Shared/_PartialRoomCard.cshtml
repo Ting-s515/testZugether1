@@ -1,9 +1,7 @@
 ﻿@using testZugether1.DTO
 @using System.Linq
 @model IEnumerable<RoomViewModel>
-
-<h1>這邊是_PartialRoomCard</h1>
-<a asp-action="Index" asp-controller="Home">回首頁</a>@*測試用*@
+@await Html.PartialAsync("_PartialSearch")
 <div class="container mt-5">
 	<div class="row row-cols-1 row-cols-md-12 g-0 card-element">
 		@*動態區*@
@@ -23,11 +21,11 @@
 										var firstImage = room.roomImages.FirstOrDefault();
 										string imageBase64 = Convert.ToBase64String(firstImage.room_photo);
 										string imageType = $"data:image/{firstImage.photo_type};base64,{imageBase64}";
-													<img src="@imageType" alt="Room Image" class="img-fluid rounded-md-start room-image">
+										<img src="@imageType" alt="Room Image" class="img-fluid rounded-md-start room-image">
 									}
 									else
 									{
-													<img src="~/img/rooms/room@(room.Room?.room_id).jpg" alt="Room Image" class="img-fluid rounded-md-start room-image">
+										<img src="~/images/rooms/room@(room.Room?.room_id).jpg" alt="Room Image" class="img-fluid rounded-md-start room-image">
 									}
 								}
 							</div>
@@ -109,37 +107,17 @@
 												@($"{room.Room?.address}")
 											</div>
 										</div>
-
-										@*@if(room.deviceList?.FirstOrDefault()?.canSmoking == true)
-								{
-								<div class="col">
-								<div class="d-flex align-items-center card-text">
-								<span class="material-symbols-outlined me-2">smoking_rooms</span>
-								可抽菸
-								</div>
-								</div>
-								}
-								@if(room.deviceList?.FirstOrDefault()?.canPet == true)
-								{
-								<div class="col">
-								<div class="d-flex align-items-center card-text">
-								<span class="material-symbols-outlined me-2">pets</span>
-								可養寵物
-								</div>
-								</div>
-								}*@
-
 										<div class="col-12 col-md-6">
 											<div class="d-flex align-items-center card-text">
 												<span class="material-symbols-outlined me-2">work</span>
-												希望室友工作時間: @($"{room.Room?.perfer_jobtime}")
+												希望室友工作時間: @($"{room.Room?.prefer_jobtime}")班
 											</div>
 										</div>
 									</div>
-									<div class="mb-2 d-flex align-items-center">
-										<div class="d-flex card-text align-items-start">
+									<div class="mt-2 d-flex align-items-center">
+										<div class="d-flex align-items-start">
 											<span class="material-symbols-outlined me-2">folded_hands</span>
-											<span class="mt-1">@($"{room.Room?.roommate_description}")</span>
+											<span class="mt-1 card-text">@($"{room.Room?.roommate_description}")</span>
 										</div>
 									</div>
 								</div>
@@ -155,14 +133,16 @@
 			<h1>@ViewBag.Message</h1>
 		}
 		<!--foreach結束-->
-		<h3>搜尋條件: @ViewBag.CityList</h3>
+		@* <h3>搜尋條件: @ViewBag.CityList</h3> *@
 		<div id="alert-container" style="margin:20px;"></div>
+		@*動畫Loading*@
+		<div id="loading-container"></div>
 	</div>
 </div>
 
 <script>
 	$(function () {
-		var isLogin = @JsonConvert.SerializeObject(ViewContext.HttpContext.Session.GetString("isLogin") == "true");	
+		var isLogin = @JsonConvert.SerializeObject(ViewContext.HttpContext.Session.GetString("isLogin") == "true");
 		var memberID, memberName, memberEmail;
 		if (isLogin) {
 			memberID = sessionStorage.getItem("memberID");
@@ -175,6 +155,7 @@
 		if (navigation && navigation.type === "back_forward") {
 			console.log("載入方式", navigation.type);
 			checkFavoriteRoom();
+			console.log("檢查checkFavoriteRoom()")
 		}
 
 		function checkFavoriteRoom() {
@@ -194,8 +175,9 @@
 				},
 				error: ajaxError
 			});
-		}	
+		}
 		//$(function ()結束
+
 	});
 	//通用錯誤函式
 	function ajaxError(xhr, status, error) {

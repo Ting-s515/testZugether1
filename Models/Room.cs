@@ -45,7 +45,7 @@ public partial class Room
 
     public string? pay_type { get; set; }
 
-    public string? perfer_jobtime { get; set; }
+    public string? prefer_jobtime { get; set; }
 
     public virtual ICollection<Favorites> Favorites { get; set; } = new List<Favorites>();
 

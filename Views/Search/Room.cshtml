@@ -1,9 +1,7 @@
 ﻿@using testZugether1.DTO
 @using Newtonsoft.Json
 @model RoomViewModel
-@{
-
-}
+@await Html.PartialAsync("_PartialSearch")
 <style>
 	/* 留言區頭貼 */
 	.user-shot {
@@ -11,11 +9,12 @@
 		width: 40px;
 	}
 
-	#user-shot:hover {
+/* 	#user-shot:hover {
 		cursor: pointer;
-		transform: scale(2) translateX(10px) translateY(10px);
-		transition: transform 0.3s ease; /* 添加平滑過渡效果 */
-	}
+		transform: scale(2) translateX(10px) translateY(10px); */
+		/* 添加平滑過渡效果 */
+	/* 	transition: transform 0.3s ease; 
+	} */
 	/* 訊息區 */
 	.messageBubble {
 		background-color: #FFDDAA;
@@ -47,12 +46,12 @@
 			cursor: pointer;
 		}
 	/* 回覆會員姓名 */
-	#reply-member-name:hover {
+/* 	#reply-member-name:hover {
 		color: blue;
-		text-decoration: underline;
+		text-decoration: underline; */
 		/* 變更游標為手指 */
-		cursor: pointer;
-	}
+	/* 	cursor: pointer;
+	} */
 
 	.messageTime {
 		font-size: 16px;
@@ -91,12 +90,12 @@
 		}
 	}
 	/*留言區會員姓名*/
-	#member-name:hover {
+	/* #member-name:hover {
 		color: blue;
-		text-decoration: underline;
+		text-decoration: underline; */
 		/* 變更游標為手指 */
-		cursor: pointer;
-	}
+	/* 	cursor: pointer;
+	} */
 	/*回覆者姓名*/
 	.reply-member-name {
 		color: red;
@@ -105,7 +104,6 @@
 
 </style>
 
-<h2>這邊是SearchController</h2>
 <section class="room-area">
 	<div class="container">
 		<div class="mb-3">
@@ -118,9 +116,9 @@
 		<!-- 圖片幻燈片 -->
 		@if (Model.roomImages != null && Model.roomImages.Any())
 		{
-			<div class="carousel-container">
-				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-					<div class="carousel-inner">
+				<div class="carousel-container">
+					<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner">
 						@for (int i = 0; i < Model.roomImages.Count; i++)
 						{
 							var image = Model.roomImages[i];
@@ -129,52 +127,52 @@
 								string imageBase64 = Convert.ToBase64String(image.room_photo);
 								// 從資料庫讀取 photo類型
 								string imageSrc = $"data:{image.photo_type};base64,{imageBase64}";
-								<div class="carousel-item @(i == 0 ? "active" : "")">
-									<img src="@imageSrc" class="d-block w-100" alt="Room image">
-								</div>
+											<div class="carousel-item @(i == 0 ? "active" : "")">
+												<img src="@imageSrc" class="d-block w-100" alt="Room image">
+											</div>
 							}
 						}
+						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+								data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+								data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-							data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-							data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
 				</div>
-			</div>
 		}
 		else
 		{
-			<div class="carousel-container">
-				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img src="~/img/search/room1.jpg" class="d-block w-100" alt="...">
+				<div class="carousel-container">
+					<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<img src="~/images/rooms/room1.jpg" class="d-block w-100" alt="...">
+							</div>
+							<div class="carousel-item">
+								<img src="~/images/rooms/room2.jpg" class="d-block w-100" alt="...">
+							</div>
+							<div class="carousel-item">
+								<img src="~/images/rooms/room3.jpg" class="d-block w-100" alt="...">
+							</div>
 						</div>
-						<div class="carousel-item">
-							<img src="~/img/search/room2.jpg" class="d-block w-100" alt="...">
-						</div>
-						<div class="carousel-item">
-							<img src="~/img/search/room1.jpg" class="d-block w-100" alt="...">
-						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+								data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+								data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
 					</div>
-					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-							data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-							data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
 				</div>
-			</div>
 		}
 
 		<div class="information-div">
@@ -186,7 +184,7 @@
 			<div class="row d-flex p-2">
 				<div class="col-md-6 ">
 					<div class="mb-2 d-flex align-items-center">
-						<strong class="" style="font-size:24px;">@($"{Model.Room?.room_title}")@($"{Model.Room?.room_type}")</strong>
+						<strong class="" style="font-size:24px;">@($"{Model.Room?.room_title}")</strong>
 					</div>
 					<div class="row row-cols-2 row-cols-md-1">
 						<div class="mb-2 col-6 col-md-12 align-items-center ">
@@ -224,7 +222,7 @@
 							<span class="material-symbols-outlined me-2">location_on</span>地址 : @($"{Model.Room?.address}")
 						</div>
 						<div class="mb-2 col-6 col-md-12 align-items-center">
-							<span class="material-symbols-outlined me-2">work</span>希望室友工作時間 : @($"{Model.Room?.perfer_jobtime}")
+							<span class="material-symbols-outlined me-2">work</span>希望室友工作時間 : @($"{Model.Room?.prefer_jobtime}")
 						</div>
 					</div>
 
@@ -358,13 +356,13 @@
 						{
 							string imageBase64 = Convert.ToBase64String(Model.Member.avatar);
 							string imageSrc = $"data:image/jpeg;base64,{imageBase64}";
-							<img src="@imageSrc" alt="Room Image" class="img-fluid rounded-circle "
-								 style="height: 200px; width: 200px; object-fit: cover;">
+									<img src="@imageSrc" alt="Room Image" class="img-fluid rounded-circle "
+										 style="height: 200px; width: 200px; object-fit: cover;">
 						}
 						else
 						{
-							<img src="~/images/peopleImg.png" alt="Room Image" class="img-fluid rounded-circle "
-								 style="height: 200px; width: 200px; object-fit: cover;">
+									<img src="~/images/peopleImg.png" alt="Room Image" class="img-fluid rounded-circle "
+										 style="height: 200px; width: 200px; object-fit: cover;">
 						}
 					}
 				</div>
@@ -437,64 +435,48 @@
 			<div class="messageArea overflow-auto CustomizedScroll" style="height: auto; max-height: 400px;">
 				<!-- 動態生成區 -->
 				<!-- 訊息區 -->
-				@*<div class="messageItem mb-3 d-flex">
-				<img src="~/img/search/people.jpg" alt="" class="object-cover rounded-circle me-2 user-shot">
-				<div class="messageBubble p-2 rounded">
-				<div class="d-flex align-items-center justify-content-between">
-				<strong class="member-name">
-				小李
-				</strong>
-				<span class="message-basement">B1</span>
-				</div>
-				<p class="message-text d-flex align-items-center">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam culpa
-				</p>
-				<span class="reply">回覆</span>
-				<span class="messageTime">2024/10/20 20:00</span>
-				</div>
-				</div>*@
 				@if (Model.roomMessages != null && Model.roomMessages.Any())
 				{
 					@foreach (var message in Model.roomMessages)
 					{
-						<div class="messageItem mb-3 d-flex">
+								<div class="messageItem mb-3 d-flex">
 							@{
 								if (message.avatar != null)
 								{
 									string imageBase64 = Convert.ToBase64String(message.avatar);
 									string imageSrc = $"data:image/jpeg;base64,{imageBase64}";
-									<img src="@imageSrc" alt="" class="object-cover rounded-circle me-2 user-shot" id="user-shot">
+													<img src="@imageSrc" alt="" class="object-cover rounded-circle me-2 user-shot" id="user-shot">
 								}
 								else
 								{
-									<img src="~/images/peopleImg.png" alt="" class="object-cover rounded-circle me-2 user-shot" id="user-shot">
+													<img src="~/images/peopleImg.png" alt="" class="object-cover rounded-circle me-2 user-shot" id="user-shot">
 								}
 							}
-							<div class="messageBubble p-2 rounded">
-								<div class="d-flex align-items-center justify-content-between">
-									<strong class="member-name" id="member-name">
+									<div class="messageBubble p-2 rounded">
+										<div class="d-flex align-items-center justify-content-between">
+											<strong class="member-name" id="member-name">
 										@message.member_name
-									</strong>
-									<strong class="message-basement">B@(message.message_basement)</strong>
-								</div>
-								<p class="message-text d-flex align-items-center">
+											</strong>
+											<strong class="message-basement">B@(message.message_basement)</strong>
+										</div>
+										<p class="message-text d-flex align-items-center">
 									@if (!string.IsNullOrEmpty(message.reply_member_content))
 									{
-										<strong class="reply-member-name" id="reply-member-name">@message.reply_member_content: </strong>
+													<strong class="reply-member-name" id="reply-member-name">@message.reply_member_content: </strong>
 									}
 									@message.message_content
-								</p>
-								<span class="reply">回覆</span>
-								<span class="messageTime">@message.post_time?.ToString()</span>
-							</div>
-						</div>
+										</p>
+										<span class="reply">回覆</span>
+										<span class="messageTime">@message.post_time?.ToString()</span>
+									</div>
+								</div>
 					}
 				}
 				else
 				{
-					<div class=" mb-2 d-flex" id="No-message">
-						<div class=" p-2  w-100 text-center text-muted">目前尚無留言，快來留下您的想法!!</div>
-					</div>
+						<div class=" mb-2 d-flex" id="No-message">
+							<div class=" p-2  w-100 text-center text-muted">目前尚無留言，快來留下您的想法!!</div>
+						</div>
 				}
 
 			</div>
@@ -513,23 +495,12 @@
 
 		<!-- 留言結束 -->
 		<div class="d-flex justify-content-center py-5">
-			@*測試名字*@
-			@*<input type="text" class="form-control" placeholder="TestName" id="userName" style="width:100px;height:50px; margin-right:10px;">*@
 			<button type="button" class="btn btn-danger me-3 " id="add-favorites-btn">加入收藏</button>
 			<button type="button" class="btn btn-secondary me-3 d-none" id="remove-favorites-btn">移除收藏</button>
-			<button type="button" class="btn btn-primary" id="share-room-btn"> 合租邀約</button>
+			<button type="button" class="btn btn-primary" id="invite-room-btn"> 合租邀約</button>
 		</div>
 	</div>
 
-	@*測試區*@
-	<div>
-		<p>@($"roomID: {Model.Room?.room_id} roomTitle:　{Model.Room?.room_title}")</p>
-		<p id="memberData"></p>
-		<button id="loginOut" type="submit">登出</button>
-	</div>
-
-
-	<button type="submit" id="btn1">click</button>
 	@*會員彈出modal*@
 	<div id="PartialMemberModal"></div>
 	@*回覆彈出modal*@
@@ -550,31 +521,31 @@
 			memberName = String(sessionStorage.getItem("memberName"));
 			memberEmail = String(sessionStorage.getItem("memberEmail"));
 			//檢查房間是否匹配會員編號
-			(async () => {
-				try {
-					const getMemberID = await disableFavoriteAndShareRoom();
-					if (getMemberID != memberID) {
-						console.log("匹配失敗");
-						return;
-					}
-					console.log(`房間編號 "${roomID}" 對應登入會員 "${getMemberID}" 匹配成功`);
-					$('#add-favorites-btn').prop('disabled', true);
-					$('#share-room-btn').prop('disabled', true);
-				} catch (error) {
-					//抓throw error;
-					console.error("發生錯誤:", error);
-				}
-			})();
+			// (async () => {
+			// 	try {
+			// 		const getMemberID = await disableFavoriteAndShareRoom();
+			// 		if (getMemberID != memberID) {
+			// 			console.log("匹配失敗");
+			// 			return;
+			// 		}
+			// 		console.log(`房間編號 "${roomID}" 對應登入會員 "${getMemberID}" 匹配成功`);
+			// 		$('#add-favorites-btn').prop('disabled', true);
+			// 		$('#invite-room-btn').prop('disabled', true);
+			// 	} catch (error) {
+			// 		//抓throw error;
+			// 		console.error("發生錯誤:", error);
+			// 	}
+			// })();
 		}
 		console.log("會員 ID:", memberID);
 		console.log("會員名稱:", memberName);
 		console.log("會員 Email:", memberEmail);
-		$('#memberData').text(`歡迎 ${memberID} ${memberName} ${memberEmail}`);
-		$('#loginOut').click(function () {
-			console.log("清除成功");
-			sessionStorage.clear();
-			$('#memberData').text("已清除會員資料");
-		});
+		// $('#memberData').text(`歡迎 ${memberID} ${memberName} ${memberEmail}`);
+		// $('#loginOut').click(function () {
+		// 	console.log("清除成功");
+		// 	sessionStorage.clear();
+		// 	$('#memberData').text("已清除會員資料");
+		// });
 
 		//檢查收藏
 		checkFavoriteRoom();
@@ -583,13 +554,13 @@
 		//上一頁
 		$('#return-btn').click(function () {
 			window.history.back();
-			setTimeout(function () {
-				window.location.reload();
-			}, 100);
+			// setTimeout(function () {
+			// 	window.location.reload();
+			// }, 100);
 		});
 		// 建立 SignalR 連接
-		const connection = new signalR.HubConnectionBuilder()
-			.withUrl("/chatHub", { accessTokenFactory: () => sessionStorage.getItem("loginID") })
+		var connection = new signalR.HubConnectionBuilder()
+			.withUrl("/chatHub")
 			// 啟用自動重連
 			.withAutomaticReconnect()
 			.build();
@@ -612,27 +583,10 @@
 			console.error("SignalR 連接已關閉:", error);
 		});
 		// 接收從伺服器端傳來的參數
-		connection.on("NewMessage", function (user, message) {
-			//抓取最新樓層
-			var latestBasementText = $('.message-basement:last').text();
-			var latestBasementNumber = 1;
-			//如果有
-			if (latestBasementText) {
-				var basementNumber = parseInt(latestBasementText.replace(/\D/g, ''));
-				//提取到 +1
-				if (!isNaN(basementNumber)) {
-					latestBasementNumber = basementNumber + 1;
-				}
-			}
-			//沒有樓層輸出B1
-			var newBasementText = "B" + latestBasementNumber;
-			console.log("最新樓層:", newBasementText);
-
+		connection.on("NewMessage", function (user, message, searchMemberIdToAvatar, newBasement) {
+			let messageTime = "", replyMemberName = "", messageContent = "", replyName = "";
 			//分離文本內容
-			var messageTime = getMessageTime();
-			var replyMemberName = "";
-			var messageContent = "";
-			var replyName = "";
+			messageTime = getMessageTime();
 			const regex = /^(B\d+)\(([^)]+)\): (.*)$/;
 			const match = message.match(regex);
 			//匹配格式
@@ -644,42 +598,54 @@
 			else {
 				messageContent = message;
 			}
-			console.log("登入會員編號= ", memberID);
-			console.log("抓取回覆姓名= ", replyName);
-			console.log("測試replyMemberName= ", replyMemberName);
-			console.log("測試messageContent=", messageContent);
+			// console.log("check Client的最新樓層", newBasement);
+			// console.log("抓取回覆姓名= ", replyName);
+			// console.log("測試replyMemberName= ", replyMemberName);
+			// console.log("測試messageContent=", messageContent);
+
+			const currentMemberID = String(sessionStorage.getItem("memberID"));
+			// console.log("check Client會員編號=", searchMemberIdToAvatar);
 			//post留言到資料庫
-			$.ajax({
-				url: '@Url.Action("PostMessage", "Search")',
-				type: "POST",
-				data: {
-					roomID: roomID, memberID: memberID, messageTime: messageTime,
-					replyMemberContent: replyMemberName, messageContent: messageContent, replyName: replyName
-				},
-				success: function (response) {
-					if (response.state) {
-						console.log(response.message);
-					} else {
-						console.error("伺服器回應錯誤:", response.message);
-						console.error("詳細錯誤資訊:", response);
+			//匹配成功才觸發ajax
+			if (String(searchMemberIdToAvatar) === currentMemberID) {
+				$.ajax({
+					url: '@Url.Action("PostMessage", "Search")',
+					type: "POST",
+					data: {
+						roomID: roomID, memberID: memberID, messageTime: messageTime,
+						replyMemberContent: replyMemberName, messageContent: messageContent, replyName: replyName
+					},
+					success: function (response) {
+						if (response.state) {
+							// console.log(`匹配成功，searchMemberIdToAvatar: ${searchMemberIdToAvatar}, memberID: ${currentMemberID}`);
+							console.log(response.message, "ajax已執行完畢");
+						} else {
+							console.error("伺服器回應錯誤:", response.message);
+							console.error("詳細錯誤資訊:", response);
+						}
+					},
+					error: function (xhr, status, error) {
+						ajaxError(xhr, status, error);
+						const response = xhr.responseJSON;
+						if (response) {
+							console.error("調試資訊:", response.debugInfo || "無調試資訊");
+						} else {
+							console.error("未預期的錯誤:", xhr.responseText);
+						}
 					}
-				},
-				error: function (xhr, status, error) {
-					ajaxError(xhr, status, error);
-					const response = xhr.responseJSON;
-					if (response) {
-						console.error("調試資訊:", response.debugInfo || "無調試資訊");
-					} else {
-						console.error("未預期的錯誤:", xhr.responseText);
-					}
-				}
-			});
-			//抓當前登入會員圖片
-			var imageSrc = "";
+				});
+			}
+			else {
+				// console.log(`匹配失敗，searchMemberIdToAvatar: ${searchMemberIdToAvatar}, memberID: ${currentMemberID}`);
+				console.log("跳過當前ajax");
+			}
+
+			//抓發送會員的圖片
+			let imageSrc = "";
 			$.ajax({
 				url: '@Url.Action("GetMemberImage", "Search")',
 				type: "POST",
-				data: { memberID: memberID },
+				data: { memberID: searchMemberIdToAvatar },
 				// 確保接收的是二進制數據
 				xhrFields: {
 					responseType: "arraybuffer"
@@ -694,24 +660,26 @@
 					// console.log("圖片來源已更新:", imageSrc);
 					//發送留言
 					var newMessage = `<div class="messageItem mb-3 d-flex">
-										<img src="${imageSrc}" alt="" class="object-cover rounded-circle me-2 user-shot" style="min-width: 40px; height: 40px;">
-										<div class="messageBubble p-2 rounded">
-										<div class="d-flex align-items-center justify-content-between">
-												<strong class="member-name">
-													${user}
-												</strong>
-													<strong class="message-basement">${newBasementText}</strong>
-											</div>
-											<p class="message-text d-flex align-items-center">
-													${replyMemberName ? `<span class="reply-member-name" id="reply-member-name">${replyMemberName}: </span>` : ''}
-												${messageContent}
-											</p>
-											<span class="reply">回覆</span>
-											<span class="messageTime">${messageTime}</span>
-										</div>
-										</div>`;
+														<img src="${imageSrc}" alt="" class="object-cover rounded-circle me-2 user-shot" style="min-width: 40px; height: 40px;">
+														<div class="messageBubble p-2 rounded">
+														<div class="d-flex align-items-center justify-content-between">
+																<strong class="member-name">
+																	${user}
+																</strong>
+																		<strong class="message-basement">${newBasement}</strong>
+															</div>
+															<p class="message-text d-flex align-items-center">
+																	${replyMemberName ? `<span class="reply-member-name" id="reply-member-name">${replyMemberName}: </span>` : ''}
+																${messageContent}
+															</p>
+															<span class="reply">回覆</span>
+															<span class="messageTime">${messageTime}</span>
+														</div>
+														</div>`;
 					$('.messageArea').append(newMessage);
 					$('#No-message').remove();
+					// console.log("檢查啟用發送按鈕");
+					$('#send').prop('disabled', false);
 				},
 				error: function (xhr, status, error) {
 					try {
@@ -723,7 +691,6 @@
 					}
 				}
 			});
-
 			//自動滾動
 			var messageArea = $('.messageArea');
 			var lastMessage = $('.messageItem').last();
@@ -745,31 +712,65 @@
 				});
 			}
 			else {
-				var userName = sessionStorage.getItem("memberName");//測試
+				var userName = sessionStorage.getItem("memberName");
+				var memberID = sessionStorage.getItem("memberID");
 				var messageTime = getMessageTime();
 				console.log("檢查發送留言roomID= ", roomID);
 				//接收訊息輸入
 				var inputMessage = $('#inputMessage').val().trim();
 				if (inputMessage.length <= 0) {
-					alert("請輸入訊息");
+					$('#alert-container').load('/Search/Alert', {
+						Color: 'danger',
+						AlertText: '請輸入訊息!!',
+						Show: true,
+						Time: 1000
+					});
 					return;
 				}
-				else if (inputMessage.startsWith("回覆") && inputMessage.includes(":")) {
+				else if (inputMessage.match(/^B\d+\(.+\):/)) {
 					const parts = inputMessage.split(":");
 					if (parts[1].trim().length <= 0) {
-						alert("請輸入回覆的訊息");
+						$('#alert-container').load('/Search/Alert', {
+							Color: 'danger',
+							AlertText: '請輸入回覆的訊息!!',
+							Show: true,
+							Time: 1000
+						});
 						return;
 					}
 				}
-
+				//透過委派去抓取最新樓層
+				let latestBasement = $('.messageArea').find('.message-basement:last').text();
+				let latestBasementNumber = 1;
+				//如果有
+				if (latestBasement) {
+					let basementNumber = parseInt(latestBasement.replace(/\D/g, ''));
+					//提取到 +1
+					if (!isNaN(basementNumber)) {
+						latestBasementNumber = basementNumber + 1;
+					}
+				}
+				//沒有樓層輸出B1
+				let newBasement = "B" + latestBasementNumber;
+				console.log("check最新樓層:", newBasement);
 				// 觸發server端事件
-				connection.invoke("SendMessage", userName, inputMessage).catch(function (err) {
-					return console.error("錯誤", err.toString());
-				});
+				connection.invoke("SendMessage", userName, inputMessage, memberID, newBasement)
+					.catch(function (err) {
+						return console.error("錯誤", err.toString());
+					});
 				$('#inputMessage').val('');
 				//移除防呆事件
 				$('#inputMessage').off('input');
 				$('#cancel-reply').addClass('d-none');
+				$('#send').prop('disabled', true);
+			}
+		});
+
+		// 監聽 Enter 事件
+		$('#inputMessage').keydown(function (e) {
+			if (e.key === "Enter") {
+				e.preventDefault(); // 阻止預設的換行
+				$('#send').click(); 
 			}
 		});
 
@@ -791,9 +792,9 @@
 				//最新樓層
 				const messageBasement = $(this).closest('.messageBubble').find('.message-basement').text().trim();
 				var latestBasement = $('.message-basement:last').text();
-				console.log("測試latestBasement= ", latestBasement);
-				console.log("測試name= ", name);
-				console.log("測試messageBasement= ", messageBasement);
+				// console.log("測試latestBasement= ", latestBasement);
+				// console.log("測試name= ", name);
+				// console.log("測試messageBasement= ", messageBasement);
 				const replyText = `${messageBasement}(${name}): `;
 				$('#inputMessage').val(replyText);
 				// 將輸入焦點移到輸入框
@@ -810,7 +811,7 @@
 
 		//取消回覆
 		$('#cancel-reply').click(function () {
-			console.log("取消回覆");
+			// console.log("取消回覆");
 			$('#inputMessage').val('');
 			$(this).addClass('d-none');
 			// 移除防呆事件
@@ -925,51 +926,51 @@
 		}
 
 		//圖片點擊
-		$('.messageArea').on('click', '#user-shot', function () {
-			const memberName = $(this).siblings('.messageBubble').find('.member-name').text().trim();
-			// console.log(memberName);
-			$.ajax({
-				url: '/Search/MessageMember',
-				type: 'POST',
-				data: { memberName: memberName },
-				success: function (html) {
-					$('#PartialMemberModal').html(html);
-					$('#MemberModal').modal('show');
-				},
-				error: ajaxError
-			});
-		});
+		// $('.messageArea').on('click', '#user-shot', function () {
+		// 	const memberName = $(this).siblings('.messageBubble').find('.member-name').text().trim();
+		// 	// console.log(memberName);
+		// 	$.ajax({
+		// 		url: '/Search/MessageMember',
+		// 		type: 'POST',
+		// 		data: { memberName: memberName },
+		// 		success: function (html) {
+		// 			$('#PartialMemberModal').html(html);
+		// 			$('#MemberModal').modal('show');
+		// 		},
+		// 		error: ajaxError
+		// 	});
+		// });
 		//名字點擊
-		$('.messageArea').on('click', '#member-name', function () {
-			const memberName = $(this).text().trim();
-			$.ajax({
-				url: '/Search/MessageMember',
-				type: 'POST',
-				data: { memberName: memberName },
-				success: function (html) {
-					$('#PartialMemberModal').html(html);
-					$('#MemberModal').modal('show');
-				},
-				error: ajaxError
-			});
-		});
+		// $('.messageArea').on('click', '#member-name', function () {
+		// 	const memberName = $(this).text().trim();
+		// 	$.ajax({
+		// 		url: '/Search/MessageMember',
+		// 		type: 'POST',
+		// 		data: { memberName: memberName },
+		// 		success: function (html) {
+		// 			$('#PartialMemberModal').html(html);
+		// 			$('#MemberModal').modal('show');
+		// 		},
+		// 		error: ajaxError
+		// 	});
+		// });
 		//點擊已回覆樓層
-		$('.messageArea').on('click', '#reply-member-name', function () {
-			const replyText = $(this).text();
-			const replyBasementRegex = replyText.match(/^B(\d+)\(/);
-			const replyBasement = replyBasementRegex[1];
-			console.log(replyBasement, "roomID=", roomID);
-			$.ajax({
-				url: '/Search/PostReplyBasement',
-				type: 'POST',
-				data: { replyBasement: replyBasement, roomID: roomID },
-				success: function (html) {
-					$('#PartialReplyModal').html(html);
-					$('#ReplyModal').modal('show');
-				},
-				error: ajaxError
-			});
-		});
+		// $('.messageArea').on('click', '#reply-member-name', function () {
+		// 	const replyText = $(this).text();
+		// 	const replyBasementRegex = replyText.match(/^B(\d+)\(/);
+		// 	const replyBasement = replyBasementRegex[1];
+		// 	console.log(replyBasement, "roomID=", roomID);
+		// 	$.ajax({
+		// 		url: '/Search/PostReplyBasement',
+		// 		type: 'POST',
+		// 		data: { replyBasement: replyBasement, roomID: roomID },
+		// 		success: function (html) {
+		// 			$('#PartialReplyModal').html(html);
+		// 			$('#ReplyModal').modal('show');
+		// 		},
+		// 		error: ajaxError
+		// 	});
+		// });
 		//抓時間
 		function getMessageTime() {
 			const Time = new Date();
@@ -998,8 +999,24 @@
 			console.log("AJAX 狀態:", status || "未知狀態");
 			console.log("AJAX 錯誤:", error || "未知錯誤");
 		}
+
+		// async function disableFavoriteAndShareRoom() {
+		// 	try {
+		// 		const response = await $.ajax({
+		// 			url: '/Search/disableFavoriteAndShareRoom',
+		// 			type: 'POST',
+		// 			data: { roomID: roomID }
+		// 		});
+		// 		console.log("ajax房間對應登入會員編號", response.getMemberID);
+		// 		return response.getMemberID;
+		// 	}
+		// 	catch (error) {
+		// 		console.error("Ajax錯誤:", error);
+		// 		throw error;
+		// 	}
+		// }
 		//合租
-		$('#share-room-btn').click(function () {
+		$('#invite-room-btn').click(function () {
 			if (!isLogin) {
 				$('#alert-container').load('/Search/Alert', {
 					Color: 'danger',
@@ -1017,22 +1034,6 @@
 				});
 			}
 		});
-
-		async function disableFavoriteAndShareRoom() {
-			try {
-				const response = await $.ajax({
-					url: '/Search/disableFavoriteAndShareRoom',
-					type: 'POST',
-					data: { roomID: roomID }
-				});
-				console.log("ajax房間對應登入會員編號", response.getMemberID);
-				return response.getMemberID;
-			}
-			catch (error) {
-				console.error("Ajax錯誤:", error);
-				throw error;
-			}
-		}
 		//$(function ()	結束
 	});
 </script>

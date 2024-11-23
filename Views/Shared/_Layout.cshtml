@@ -27,7 +27,7 @@
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.0/axios.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.9/signalr.min.js"></script>
 </head>
 <body>
 	@{
@@ -53,6 +53,7 @@
 					<a href="#" class="navLink w-100 p-3 lightSecondary" id="favoriteRoom">
 						<i class="bi bi-heart-fill me-2"></i>我的收藏
 					</a>
+					<div id="loading-container"></div>
 				</li>
 				<li class="nav-item">
 					<a href="/Home/testImages" class="navLink btn w-100 p-3 lightSecondary">
@@ -156,6 +157,7 @@
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script>
 		$(function () {
+			
 			var isLogin = @JsonConvert.SerializeObject(ViewContext.HttpContext.Session.GetString("isLogin") == "true");
 			var memberID, memberName, memberEmail;
 			if (isLogin) {
@@ -259,7 +261,23 @@
 				window.location.href = "/Member/Notify";
 
 			})
-
+				// 	$('.menu').on('click','#favoriteRoom',function(e){
+				// 			e.preventDefault();
+				// console.log("memberID=", memberID);
+				// $.ajax({
+				// 	url: '@Url.Action("FavoriteMemberID", "Member")',
+				// 	type: "POST",
+				// 	data: { memberID: memberID },
+				// 	success: function (response) {
+				// 		// console.log(response.message, response.state);
+				// 		$('.loading-container').load('/partialView/Loading', {
+				// 			IsLoading: true,
+				// 			Time : 2000
+				// 		});
+				// 		window.location.href = "/Member/FavoriteRoom";
+				// 	},
+				// });
+				// 	});
 			//我的收藏
 			$('#favoriteRoom').click(function (e) {
 				e.preventDefault();
@@ -270,6 +288,10 @@
 					data: { memberID: memberID },
 					success: function (response) {
 						// console.log(response.message, response.state);
+						$('#loading-container').load('/partialView/Loading', {
+							IsLoading: true,
+							Time : 2000
+						});
 						window.location.href = "/Member/FavoriteRoom";
 					},
 				});

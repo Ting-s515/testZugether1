@@ -1,9 +1,4 @@
-﻿/*:root {
-    --primary: #1c2434;
-    --secondary: #bc9b44;
-}*/
-
-.offcanvas {
+﻿.offcanvas {
     visibility: visible !important;
 }
 
@@ -30,4 +25,12 @@
 
 .range {
     accent-color: var(--primary) !important;
+}
+
+.searchLabel:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.searchCheckbox:checked + span {
 }

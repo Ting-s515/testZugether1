@@ -22,12 +22,57 @@ project.lock.json
 .vs/
 *.user
 *.suo
-# 靜態文件
-wwwroot/lib/
-node_modules/
-# 敏感配置
+# 忽略 wwwroot 資料夾（完全忽略）
+wwwroot/
+# 編譯輸出
+bin/
+obj/
+debug/
+release/
+out/
+
+# NuGet 相依性
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+project.assets.json
+
+# 忽略 NuGet 全域緩存（如果有手動指定）
+.nuget/
+
+# 使用者特定檔案（例如 Visual Studio 的配置檔）
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IIS/ASP.NET 調試檔案
+*.vspscc
+*.vspx
+*.vssscc
+*.VSWebCache
+
+# 圖形界面和 IDE 的檔案
+.vs/
+.vscode/
+.idea/
+
+# 圖形與設計相關的檔案
+_Dependencies/
+DesignTimeResolveAssembly/
+*.resharper/
+_ReSharper*
+
+# 應用配置檔案（避免敏感資訊上傳）
 appsettings.json
 appsettings.*.json
+
+# 靜態資源
+wwwroot/lib/
+node_modules/
+bower_components/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

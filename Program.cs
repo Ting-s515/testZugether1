@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using testZugether1.Hubs;
-
 using testZugether1.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 // 添加身份驗證服務
 builder.Services.AddAuthentication(options =>
@@ -24,18 +24,19 @@ builder.Services.AddAuthentication(options =>
 	// 指定google api callback path
 	googleOptions.CallbackPath = new PathString("/signin-google");
 });
-// Add services to the container.
-builder.Services.AddControllersWithViews();
 
+
+builder.Services.AddControllersWithViews();
+//添加SignalR service
 builder.Services.AddSignalR();
-builder.Services.AddDistributedMemoryCache(); // 添加分布式內存緩存
-											  // 添加 Session 支援
+// 添加分布式內存緩存
+builder.Services.AddDistributedMemoryCache();
+// 添加 Session 支援										
 builder.Services.AddSession(options =>
 {
 	options.Cookie.HttpOnly = true; // 設置為 HttpOnly
 	options.Cookie.IsEssential = true; // 將 Session 設置為必要 Cookie
 });
-// 添加 AutoMapper 服務，並指定映射配置檔案
 
 builder.Services.AddDbContext<ZugetherContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));

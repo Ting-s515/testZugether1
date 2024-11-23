@@ -158,7 +158,7 @@ public partial class ZugetherContext : DbContext
             entity.Property(e => e.bed_type).HasMaxLength(20);
             entity.Property(e => e.lease_type).HasMaxLength(20);
             entity.Property(e => e.pay_type).HasMaxLength(20);
-            entity.Property(e => e.perfer_jobtime).HasMaxLength(20);
+            entity.Property(e => e.prefer_jobtime).HasMaxLength(20);
             entity.Property(e => e.room_title).HasMaxLength(50);
             entity.Property(e => e.room_type).HasMaxLength(20);
             entity.Property(e => e.roommate_description).HasMaxLength(200);

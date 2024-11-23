@@ -25,7 +25,7 @@ namespace testZugether1.Controllers
 		}
 		[HttpPost]
 		public async Task<IActionResult> SearchRoom(string cityList, string cityAreaList, short rent, string roomType,
-			 string perferJobtime, bool pet = false, bool smoking = false)
+			 string preferJobtime, bool pet = false, bool smoking = false)
 		{
 			//會員id由session提供
 			IQueryable<Room> query = _context.Room.AsQueryable();
@@ -39,13 +39,11 @@ namespace testZugether1.Controllers
 				return RedirectToAction("RoomList");
 			}
 			//寵物 抽菸
-			if (pet || smoking)
-			{
-				query = from x in query
-						join y in _context.Device_List on x.device_list_id equals y.device_list_id
-						where (pet && y.keep_pet == true) || (smoking && y.smoking == true)
-						select x;
-			}
+			query = from x in query
+					join y in _context.Device_List on x.device_list_id equals y.device_list_id
+					where (pet ? y.keep_pet == true : y.keep_pet != true) &&
+						  (smoking ? y.smoking == true : y.smoking != true)
+					select x;
 			switch (cityList.ToLower().Trim())
 			{
 				case "all":
@@ -74,12 +72,12 @@ namespace testZugether1.Controllers
 					query = query.Where(x => x.room_type == roomType);
 					break;
 			}
-			switch (perferJobtime.ToLower().Trim())
+			switch (preferJobtime.ToLower().Trim())
 			{
 				case "all":
 					break;
 				default:
-					query = query.Where(x => x.perfer_jobtime.Contains(perferJobtime));
+					query = query.Where(x => x.prefer_jobtime.Contains(preferJobtime));
 					break;
 			}
 			//string? isLogin = HttpContext.Session.GetString("isLogin");
@@ -230,9 +228,10 @@ namespace testZugether1.Controllers
 		{
 			try
 			{
-				Device_List? room = await (from x in _context.Device_List
-										   where x.device_list_id == roomID
-										   select x).FirstOrDefaultAsync();
+				Device_List? room = await (from x in _context.Room
+										   where x.room_id == roomID
+										   join y in _context.Device_List on x.device_list_id equals y.device_list_id
+										   select y).FirstOrDefaultAsync();
 				return Json(new { state = true, data = room });
 			}
 			catch (Exception ex)
@@ -374,11 +373,20 @@ namespace testZugether1.Controllers
 			}
 		}
 		[HttpPost]
-		public IActionResult GetMemberImage(short memberID)
+		public IActionResult GetMemberImage(string memberID)
 		{
 			try
 			{
-				var member = _context.Member.FirstOrDefault(x => x.member_id == memberID);
+				if (!short.TryParse(memberID.Trim(), out short parsedMemberID))
+				{
+					return Json(new
+					{
+						success = false,
+						message = "無效的會員 ID，無法進行處理",
+						debugInfo = new { MemberID = memberID }
+					});
+				}
+				var member = _context.Member.FirstOrDefault(x => x.member_id == parsedMemberID);
 				if (member?.avatar == null)
 				{
 					// 如果沒有圖片，返回預設圖片
